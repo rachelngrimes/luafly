@@ -1,0 +1,8 @@
+{
+  "name": "luafly",
+  "version": "1.0.0",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "uuid": "^9.0.0"
+  }
+}
