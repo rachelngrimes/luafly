@@ -3,182 +3,218 @@
 <head>
   <meta charset="UTF-8" />
   <title>Luafly Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #fff; font-family: monospace; }
-    
+    body { background: #0a0a0f; color: #e8e8f0; font-family: 'Inter', system-ui, sans-serif; display: flex; height: 100vh; overflow: hidden; font-size: 13px; }
+    .sidebar { width: 220px; background: #0f0f1a; border-right: 1px solid #1e1e2e; display: flex; flex-direction: column; flex-shrink: 0; }
+    .logo { padding: 20px 20px 16px; border-bottom: 1px solid #1e1e2e; }
+    .logo-text { font-size: 20px; font-weight: 700; color: #a78bfa; }
+    .logo-sub { font-size: 11px; color: #4a4a6a; margin-top: 2px; }
+    .nav { padding: 12px 10px; flex: 1; }
+    .nav-section { font-size: 10px; color: #3a3a5a; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 8px 10px 4px; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; cursor: pointer; color: #6b6b8a; margin-bottom: 2px; transition: all .15s; }
+    .nav-item:hover { background: #1a1a2e; color: #a0a0c0; }
+    .nav-item.active { background: #1e1040; color: #a78bfa; }
+    .nav-bottom { padding: 12px; border-top: 1px solid #1e1e2e; }
+    .main { flex: 1; overflow-y: auto; background: #0a0a0f; }
+    .topbar { padding: 16px 24px; border-bottom: 1px solid #1e1e2e; display: flex; align-items: center; justify-content: space-between; background: #0a0a0f; position: sticky; top: 0; z-index: 10; }
+    .topbar-title { font-size: 15px; font-weight: 600; color: #e8e8f0; }
+    .badge-live { background: #0d2b1a; color: #34d399; font-size: 10px; padding: 3px 8px; border-radius: 20px; border: 1px solid #065f46; font-weight: 600; }
+    .content { padding: 20px 24px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+    .stat-card { background: #0f0f1a; border: 1px solid #1e1e2e; border-radius: 12px; padding: 14px 16px; }
+    .stat-label { font-size: 11px; color: #4a4a6a; margin-bottom: 6px; font-weight: 500; }
+    .stat-num { font-size: 24px; font-weight: 700; color: #e8e8f0; }
+    .stat-change { font-size: 10px; margin-top: 4px; color: #4a4a6a; }
+    .stat-card.purple { border-color: #2e1e5e; } .stat-card.purple .stat-num { color: #a78bfa; }
+    .stat-card.blue { border-color: #1e2e5e; } .stat-card.blue .stat-num { color: #60a5fa; }
+    .stat-card.green { border-color: #1e3e2e; } .stat-card.green .stat-num { color: #34d399; }
+    .stat-card.red { border-color: #3e1e1e; } .stat-card.red .stat-num { color: #f87171; }
+    .section-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .card { background: #0f0f1a; border: 1px solid #1e1e2e; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+    .card-title { font-size: 11px; font-weight: 600; color: #6b6b8a; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+    .page { display: none; } .page.active { display: block; }
+    input, select, textarea { background: #161626; border: 1px solid #1e1e2e; border-radius: 8px; padding: 7px 10px; color: #d0d0e8; font-size: 12px; font-family: inherit; }
+    input:focus, select:focus { outline: none; border-color: #4a3a8a; }
+    .btn { padding: 7px 14px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; font-family: inherit; }
+    .btn-purple { background: #1e1040; color: #a78bfa; border: 1px solid #2e1e5e; }
+    .btn-purple:hover { background: #2a1a50; }
+    .btn-green { background: #0d2b1a; color: #34d399; border: 1px solid #065f46; }
+    .btn-red { background: #2b0d0d; color: #f87171; border: 1px solid #7f1d1d; }
+    .btn-gray { background: #161626; color: #8080a0; border: 1px solid #1e1e2e; }
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { color: #4a4a6a; padding: 6px 10px; border-bottom: 1px solid #1e1e2e; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    td { padding: 9px 10px; border-bottom: 1px solid #161626; color: #a0a0c0; }
+    tr:hover td { background: #111120; }
+    .pill { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+    .pill.wl { background: #0d2b1a; color: #34d399; border: 1px solid #065f46; }
+    .pill.bl { background: #2b0d0d; color: #f87171; border: 1px solid #7f1d1d; }
+    .pill.ex { background: #2b2b0d; color: #fbbf24; border: 1px solid #78350f; }
+    .pill.rd { background: #0d1a3a; color: #60a5fa; border: 1px solid #1e3070; }
+    .pill.av { background: #1e1040; color: #a78bfa; border: 1px solid #2e1e5e; }
+    .avatar { width: 28px; height: 28px; border-radius: 7px; background: #1e1040; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #a78bfa; flex-shrink: 0; }
+    .log-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .log-dot.exec { background: #34d399; }
+    .log-dot.redeem { background: #60a5fa; }
+    .log-dot.kick { background: #f87171; }
+    .log-dot.reset { background: #fbbf24; }
+    .msg { font-size: 12px; color: #6b6b8a; margin-top: 8px; min-height: 16px; }
+
     /* Login */
-    #loginScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #0a0a0a; }
-    #loginScreen h1 { font-size: 28px; color: #7ef7a0; margin-bottom: 24px; }
-    #loginScreen input { width: 300px; padding: 10px; background: #111; border: 1px solid #333; border-radius: 6px; color: #fff; font-family: monospace; margin-bottom: 12px; }
-    #loginScreen button { width: 300px; padding: 10px; background: #7ef7a0; color: #000; border: none; border-radius: 6px; cursor: pointer; font-family: monospace; font-weight: bold; }
-    #loginError { color: #f77e7e; font-size: 13px; margin-top: 10px; }
-
-    /* Layout */
-    #mainContent { display: none; }
-    .sidebar { width: 200px; background: #111; height: 100vh; position: fixed; top: 0; left: 0; padding: 24px 16px; border-right: 1px solid #222; }
-    .sidebar h2 { color: #7ef7a0; font-size: 18px; margin-bottom: 24px; }
-    .sidebar button { width: 100%; padding: 10px; background: transparent; color: #aaa; border: none; border-radius: 6px; cursor: pointer; font-family: monospace; text-align: left; margin-bottom: 6px; font-size: 13px; }
-    .sidebar button:hover, .sidebar button.active { background: #1a1a1a; color: #fff; }
-    .main { margin-left: 200px; padding: 32px; }
-    .page { display: none; }
-    .page.active { display: block; }
-    h3 { font-size: 18px; margin-bottom: 20px; color: #7ef7a0; }
-
-    /* Cards */
-    .card { background: #111; border: 1px solid #222; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
-    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
-    .stat { background: #111; border: 1px solid #222; border-radius: 10px; padding: 16px; text-align: center; }
-    .stat .num { font-size: 28px; color: #7ef7a0; font-weight: bold; }
-    .stat .label { font-size: 12px; color: #666; margin-top: 4px; }
-
-    /* Inputs & Buttons */
-    input, select, textarea { padding: 8px 10px; background: #0a0a0a; border: 1px solid #333; border-radius: 6px; color: #fff; font-family: monospace; font-size: 13px; }
-    input:focus, select:focus { outline: none; border-color: #7ef7a0; }
-    .btn { padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-family: monospace; font-weight: bold; font-size: 13px; }
-    .btn-green { background: #7ef7a0; color: #000; }
-    .btn-red { background: #f77e7e; color: #000; }
-    .btn-gray { background: #333; color: #fff; }
-    .btn-blue { background: #7eb8f7; color: #000; }
-    .row { display: flex; gap: 10px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
-
-    /* Table */
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th { color: #7ef7a0; padding: 8px 10px; border-bottom: 1px solid #222; text-align: left; }
-    td { padding: 8px 10px; border-bottom: 1px solid #1a1a1a; color: #ccc; }
-    tr:hover td { background: #111; }
-    .badge { padding: 2px 8px; border-radius: 4px; font-size: 11px; }
-    .whitelisted { background: #1a3a1a; color: #7ef7a0; }
-    .blacklisted { background: #3a1a1a; color: #f77e7e; }
-    .expired { background: #2a2a1a; color: #f7e07e; }
-    .redeemed { background: #1a1a3a; color: #7eb8f7; }
-    .unredeemed { background: #1a2a1a; color: #aaa; }
+    #loginScreen { position: fixed; inset: 0; background: #0a0a0f; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999; }
+    #loginScreen .logo-text { font-size: 32px; font-weight: 700; color: #a78bfa; margin-bottom: 6px; }
+    #loginScreen .logo-sub { font-size: 13px; color: #4a4a6a; margin-bottom: 32px; }
+    #loginScreen input { width: 280px; padding: 10px 14px; font-size: 13px; margin-bottom: 10px; }
+    #loginScreen .btn { width: 280px; padding: 10px; font-size: 13px; }
+    #loginError { color: #f87171; font-size: 12px; margin-top: 8px; }
 
     /* Modal */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999; align-items: center; justify-content: center; }
-    .modal.open { display: flex; }
-    .modal-box { background: #111; border: 1px solid #333; border-radius: 10px; padding: 24px; width: 400px; }
-    .modal-box h4 { color: #7ef7a0; margin-bottom: 16px; }
-    .modal-box input, .modal-box select, .modal-box textarea { width: 100%; margin-bottom: 10px; }
-    .modal-box textarea { height: 80px; resize: none; }
-    .msg { font-size: 13px; color: #aaa; margin-top: 8px; }
+    #modalOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 100; align-items: center; justify-content: center; }
+    #modalOverlay.open { display: flex; }
+    .modal-box { background: #0f0f1a; border: 1px solid #2e1e5e; border-radius: 14px; padding: 24px; width: 380px; }
+    .modal-title { font-size: 14px; font-weight: 600; color: #a78bfa; margin-bottom: 16px; }
+    .modal-box input, .modal-box select, .modal-box textarea { width: 100%; margin-bottom: 8px; }
+    .modal-box textarea { height: 70px; resize: none; }
   </style>
 </head>
 <body>
 
-<!-- Login -->
 <div id="loginScreen">
-  <h1>Luafly</h1>
+  <div class="logo-text">Luafly</div>
+  <div class="logo-sub">Script Management Dashboard</div>
   <input id="passwordInput" type="password" placeholder="Enter password..." />
-  <button onclick="checkPassword()">Login</button>
+  <button class="btn btn-purple" onclick="checkPassword()">Login</button>
   <div id="loginError"></div>
 </div>
 
-<!-- Main -->
-<div id="mainContent">
+<div id="app" style="display:none;width:100%;height:100vh;display:none;flex">
   <div class="sidebar">
-    <h2>Luafly</h2>
-    <button class="active" onclick="showPage('overview')">📊 Overview</button>
-    <button onclick="showPage('users')">👤 Users</button>
-    <button onclick="showPage('keys')">🔑 Keys</button>
-    <button onclick="showPage('logs')">📋 Logs</button>
+    <div class="logo">
+      <div class="logo-text">Luafly</div>
+      <div class="logo-sub">Script Management</div>
+    </div>
+    <div class="nav">
+      <div class="nav-section">Main</div>
+      <div class="nav-item active" onclick="showPage('overview',this)"><i class="ti ti-layout-dashboard"></i> Overview</div>
+      <div class="nav-item" onclick="showPage('users',this)"><i class="ti ti-users"></i> Users</div>
+      <div class="nav-item" onclick="showPage('keys',this)"><i class="ti ti-key"></i> Keys</div>
+      <div class="nav-section">Analytics</div>
+      <div class="nav-item" onclick="showPage('logs',this)"><i class="ti ti-file-text"></i> Logs</div>
+    </div>
+    <div class="nav-bottom">
+      <div class="nav-item" onclick="logout()"><i class="ti ti-logout"></i> Logout</div>
+    </div>
   </div>
 
   <div class="main">
-
-    <!-- Overview -->
-    <div id="page-overview" class="page active">
-      <h3>Overview</h3>
-      <div class="stats">
-        <div class="stat"><div class="num" id="stat-total">0</div><div class="label">Total Users</div></div>
-        <div class="stat"><div class="num" id="stat-whitelisted">0</div><div class="label">Whitelisted</div></div>
-        <div class="stat"><div class="num" id="stat-blacklisted">0</div><div class="label">Blacklisted</div></div>
-        <div class="stat"><div class="num" id="stat-executions">0</div><div class="label">Executions Today</div></div>
-      </div>
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Overview</div>
+      <div class="badge-live">● Live</div>
     </div>
+    <div class="content">
 
-    <!-- Users -->
-    <div id="page-users" class="page">
-      <h3>Users</h3>
-      <div class="card">
-        <div class="row">
-          <input id="u-hwid" placeholder="HWID" style="width:200px" />
-          <input id="u-username" placeholder="Username" style="width:140px" />
-          <select id="u-status">
-            <option value="whitelisted">Whitelisted</option>
-            <option value="blacklisted">Blacklisted</option>
-          </select>
-          <input id="u-notes" placeholder="Notes" style="width:140px" />
-          <button class="btn btn-green" onclick="addUser()">Add</button>
+      <!-- Overview -->
+      <div id="page-overview" class="page active">
+        <div class="stats">
+          <div class="stat-card purple"><div class="stat-label">Total Users</div><div class="stat-num" id="s-total">—</div></div>
+          <div class="stat-card green"><div class="stat-label">Whitelisted</div><div class="stat-num" id="s-wl">—</div></div>
+          <div class="stat-card red"><div class="stat-label">Blacklisted</div><div class="stat-num" id="s-bl">—</div></div>
+          <div class="stat-card blue"><div class="stat-label">Executions Today</div><div class="stat-num" id="s-exec">—</div></div>
         </div>
-        <div class="msg" id="u-msg"></div>
-      </div>
-      <div class="card">
-        <table>
-          <thead><tr><th>Username</th><th>HWID</th><th>Status</th><th>Notes</th><th>Resets Left</th><th>Actions</th></tr></thead>
-          <tbody id="users-table"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Keys -->
-    <div id="page-keys" class="page">
-      <h3>Keys</h3>
-      <div class="card">
-        <div class="row">
-          <select id="k-duration">
-            <option value="7day">7 Days</option>
-            <option value="30day">30 Days</option>
-            <option value="lifetime">Lifetime</option>
-          </select>
-          <input id="k-amount" type="number" placeholder="Amount" value="1" style="width:80px" min="1" max="50" />
-          <button class="btn btn-green" onclick="generateKeys()">Generate</button>
-        </div>
-        <div class="msg" id="k-msg"></div>
-      </div>
-      <div class="card">
-        <table>
-          <thead><tr><th>Key</th><th>Duration</th><th>Status</th><th>Redeemed By</th><th>Actions</th></tr></thead>
-          <tbody id="keys-table"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Logs -->
-    <div id="page-logs" class="page">
-      <h3>Logs</h3>
-      <div class="card">
-        <div class="row">
-          <button class="btn btn-gray" onclick="loadLogs('all')">All</button>
-          <button class="btn btn-gray" onclick="loadLogs('today')">Today</button>
-          <button class="btn btn-gray" onclick="loadLogs('week')">This Week</button>
+        <div class="section-row">
+          <div class="card">
+            <div class="card-title">Recent Users</div>
+            <div id="overview-users"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Live Logs</div>
+            <div id="overview-logs"></div>
+          </div>
         </div>
       </div>
-      <div class="card">
-        <table>
-          <thead><tr><th>Username</th><th>HWID</th><th>Action</th><th>Time</th></tr></thead>
-          <tbody id="logs-table"></tbody>
-        </table>
-      </div>
-    </div>
 
+      <!-- Users -->
+      <div id="page-users" class="page">
+        <div class="card">
+          <div class="row">
+            <input id="u-hwid" placeholder="HWID" style="width:180px" />
+            <input id="u-username" placeholder="Username" style="width:120px" />
+            <select id="u-status" style="width:120px">
+              <option value="whitelisted">Whitelisted</option>
+              <option value="blacklisted">Blacklisted</option>
+            </select>
+            <input id="u-notes" placeholder="Notes" style="width:120px" />
+            <button class="btn btn-purple" onclick="addUser()"><i class="ti ti-plus"></i> Add User</button>
+          </div>
+          <div class="msg" id="u-msg"></div>
+        </div>
+        <div class="card">
+          <table>
+            <thead><tr><th>User</th><th>HWID</th><th>Status</th><th>Notes</th><th>Resets</th><th></th></tr></thead>
+            <tbody id="users-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Keys -->
+      <div id="page-keys" class="page">
+        <div class="card">
+          <div class="row">
+            <select id="k-duration" style="width:120px">
+              <option value="7day">7 Days</option>
+              <option value="30day">30 Days</option>
+              <option value="lifetime">Lifetime</option>
+            </select>
+            <input id="k-amount" type="number" value="1" min="1" max="50" style="width:70px" />
+            <button class="btn btn-purple" onclick="generateKeys()"><i class="ti ti-sparkles"></i> Generate Keys</button>
+          </div>
+          <div class="msg" id="k-msg"></div>
+        </div>
+        <div class="card">
+          <table>
+            <thead><tr><th>Key</th><th>Duration</th><th>Status</th><th>Redeemed By</th><th></th></tr></thead>
+            <tbody id="keys-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Logs -->
+      <div id="page-logs" class="page">
+        <div class="card">
+          <div class="row">
+            <button class="btn btn-gray" onclick="loadLogs('all')">All Time</button>
+            <button class="btn btn-gray" onclick="loadLogs('today')">Today</button>
+            <button class="btn btn-gray" onclick="loadLogs('week')">This Week</button>
+          </div>
+        </div>
+        <div class="card">
+          <table>
+            <thead><tr><th>User</th><th>HWID</th><th>Action</th><th>Time</th></tr></thead>
+            <tbody id="logs-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<!-- Edit User Modal -->
-<div class="modal" id="editModal">
+<!-- Edit Modal -->
+<div id="modalOverlay">
   <div class="modal-box">
-    <h4>Edit User</h4>
+    <div class="modal-title">Edit User</div>
     <input id="edit-hwid" placeholder="HWID" readonly />
     <input id="edit-username" placeholder="Username" />
     <select id="edit-status">
       <option value="whitelisted">Whitelisted</option>
       <option value="blacklisted">Blacklisted</option>
     </select>
-    <input id="edit-ban-reason" placeholder="Ban reason (if blacklisted)" />
+    <input id="edit-ban-reason" placeholder="Ban reason" />
     <textarea id="edit-notes" placeholder="Notes"></textarea>
     <input id="edit-resets" type="number" placeholder="HWID Resets Left" />
-    <div class="row">
+    <div class="row" style="margin-top:4px">
       <button class="btn btn-green" onclick="saveUser()">Save</button>
       <button class="btn btn-gray" onclick="closeModal()">Cancel</button>
       <button class="btn btn-red" onclick="deleteUser()">Delete</button>
@@ -187,68 +223,79 @@
 </div>
 
 <script>
-  // Login
   async function checkPassword() {
     const input = document.getElementById("passwordInput").value;
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password: input })
-    });
+    const res = await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: input }) });
     const data = await res.json();
     if (data.success) {
       document.getElementById("loginScreen").style.display = "none";
-      document.getElementById("mainContent").style.display = "block";
+      document.getElementById("app").style.display = "flex";
       loadOverview();
-      loadUsers();
     } else {
       document.getElementById("loginError").innerText = "Wrong password.";
     }
   }
 
-  document.getElementById("passwordInput").addEventListener("keydown", e => {
-    if (e.key === "Enter") checkPassword();
-  });
+  document.getElementById("passwordInput").addEventListener("keydown", e => { if (e.key === "Enter") checkPassword(); });
 
-  // Navigation
-  function showPage(page) {
+  function logout() {
+    document.getElementById("app").style.display = "none";
+    document.getElementById("loginScreen").style.display = "flex";
+  }
+
+  function showPage(page, el) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    document.querySelectorAll(".sidebar button").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
     document.getElementById("page-" + page).classList.add("active");
-    event.target.classList.add("active");
+    el.classList.add("active");
+    document.getElementById("topbar-title").innerText = el.innerText.trim();
     if (page === "overview") loadOverview();
     if (page === "users") loadUsers();
     if (page === "keys") loadKeys();
     if (page === "logs") loadLogs("all");
   }
 
-  // Overview
   async function loadOverview() {
     const [users, logs] = await Promise.all([
       fetch("/api/users").then(r => r.json()),
       fetch("/api/logs?filter=today").then(r => r.json())
     ]);
-    document.getElementById("stat-total").innerText = users.length;
-    document.getElementById("stat-whitelisted").innerText = users.filter(u => u.status === "whitelisted").length;
-    document.getElementById("stat-blacklisted").innerText = users.filter(u => u.status === "blacklisted").length;
-    document.getElementById("stat-executions").innerText = logs.filter(l => l.action === "executed").length;
+    document.getElementById("s-total").innerText = users.length;
+    document.getElementById("s-wl").innerText = users.filter(u => u.status === "whitelisted").length;
+    document.getElementById("s-bl").innerText = users.filter(u => u.status === "blacklisted").length;
+    document.getElementById("s-exec").innerText = logs.filter(l => l.action === "executed").length;
+
+    const ou = document.getElementById("overview-users");
+    ou.innerHTML = users.slice(0, 5).map(u => `
+      <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #161626">
+        <div class="avatar">${(u.username || "?").slice(0,2).toUpperCase()}</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:500;color:#d0d0e8">${u.username || "Unknown"}</div>
+          <div style="font-size:10px;color:#4a4a6a;font-family:monospace">${u.hwid.slice(0,20)}...</div>
+        </div>
+        <span class="pill ${u.status === 'whitelisted' ? 'wl' : u.status === 'blacklisted' ? 'bl' : 'ex'}">${u.status}</span>
+      </div>`).join("");
+
+    const ol = document.getElementById("overview-logs");
+    ol.innerHTML = logs.slice(0, 5).map(l => `
+      <div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #161626">
+        <div class="log-dot ${l.action === 'executed' ? 'exec' : l.action === 'redeemed key' ? 'redeem' : l.action === 'hwid reset' ? 'reset' : 'kick'}"></div>
+        <div style="flex:1;color:#8080a0;font-size:12px"><span style="color:#c0c0d8;font-weight:500">${l.username || 'Unknown'}</span> ${l.action}</div>
+        <div style="font-size:10px;color:#3a3a5a">${new Date(l.timestamp).toLocaleTimeString()}</div>
+      </div>`).join("");
   }
 
-  // Users
   async function loadUsers() {
     const users = await fetch("/api/users").then(r => r.json());
-    const tbody = document.getElementById("users-table");
-    tbody.innerHTML = "";
-    users.forEach(u => {
-      tbody.innerHTML += `<tr>
-        <td>${u.username || "-"}</td>
-        <td style="font-size:11px">${u.hwid}</td>
-        <td><span class="badge ${u.status}">${u.status}</span></td>
-        <td>${u.notes || "-"}</td>
-        <td>${u.hwid_resets_left ?? "-"}</td>
-        <td><button class="btn btn-gray" onclick="openEdit(${JSON.stringify(u).split('"').join("'")})">Edit</button></td>
-      </tr>`;
-    });
+    document.getElementById("users-table").innerHTML = users.map(u => `
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar">${(u.username||"?").slice(0,2).toUpperCase()}</div><span style="color:#d0d0e8;font-weight:500">${u.username||"Unknown"}</span></div></td>
+        <td style="font-family:monospace;font-size:11px">${u.hwid.slice(0,24)}...</td>
+        <td><span class="pill ${u.status==='whitelisted'?'wl':u.status==='blacklisted'?'bl':'ex'}">${u.status}</span></td>
+        <td>${u.notes||"—"}</td>
+        <td>${u.hwid_resets_left??3}</td>
+        <td><button class="btn btn-gray" onclick='openEdit(${JSON.stringify(JSON.stringify(u))})'>Edit</button></td>
+      </tr>`).join("");
   }
 
   async function addUser() {
@@ -257,116 +304,75 @@
     const status = document.getElementById("u-status").value;
     const notes = document.getElementById("u-notes").value.trim();
     if (!hwid) return setMsg("u-msg", "Enter a HWID.");
-    const res = await fetch("/api/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ hwid, username, status, notes })
-    });
+    const res = await fetch("/api/users", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hwid, username, status, notes }) });
     const data = await res.json();
     setMsg("u-msg", data.success ? "User added!" : data.error);
     loadUsers();
   }
 
-  function openEdit(u) {
-    if (typeof u === "string") u = JSON.parse(u.split("'").join('"'));
+  function openEdit(uStr) {
+    const u = JSON.parse(uStr);
     document.getElementById("edit-hwid").value = u.hwid;
     document.getElementById("edit-username").value = u.username || "";
     document.getElementById("edit-status").value = u.status;
     document.getElementById("edit-ban-reason").value = u.ban_reason || "";
     document.getElementById("edit-notes").value = u.notes || "";
     document.getElementById("edit-resets").value = u.hwid_resets_left ?? 3;
-    document.getElementById("editModal").classList.add("open");
+    document.getElementById("modalOverlay").classList.add("open");
   }
 
-  function closeModal() {
-    document.getElementById("editModal").classList.remove("open");
-  }
+  function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); }
 
   async function saveUser() {
     const hwid = document.getElementById("edit-hwid").value;
-    const res = await fetch("/api/users", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        hwid,
-        username: document.getElementById("edit-username").value,
-        status: document.getElementById("edit-status").value,
-        ban_reason: document.getElementById("edit-ban-reason").value,
-        notes: document.getElementById("edit-notes").value,
-        hwid_resets_left: parseInt(document.getElementById("edit-resets").value)
-      })
-    });
-    const data = await res.json();
-    if (data.success) { closeModal(); loadUsers(); }
+    await fetch("/api/users", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hwid, username: document.getElementById("edit-username").value, status: document.getElementById("edit-status").value, ban_reason: document.getElementById("edit-ban-reason").value, notes: document.getElementById("edit-notes").value, hwid_resets_left: parseInt(document.getElementById("edit-resets").value) }) });
+    closeModal(); loadUsers();
   }
 
   async function deleteUser() {
     const hwid = document.getElementById("edit-hwid").value;
-    await fetch("/api/users", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ hwid })
-    });
-    closeModal();
-    loadUsers();
+    await fetch("/api/users", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hwid }) });
+    closeModal(); loadUsers();
   }
 
-  // Keys
   async function loadKeys() {
     const keys = await fetch("/api/keys").then(r => r.json());
-    const tbody = document.getElementById("keys-table");
-    tbody.innerHTML = "";
-    keys.forEach(k => {
-      tbody.innerHTML += `<tr>
-        <td style="font-size:11px">${k.key}</td>
+    document.getElementById("keys-table").innerHTML = keys.map(k => `
+      <tr>
+        <td style="font-family:monospace;font-size:11px;color:#a78bfa">${k.key}</td>
         <td>${k.duration}</td>
-        <td><span class="badge ${k.redeemed ? "redeemed" : "unredeemed"}">${k.redeemed ? "Redeemed" : "Available"}</span></td>
-        <td>${k.redeemed_by || "-"}</td>
+        <td><span class="pill ${k.redeemed?'rd':'av'}">${k.redeemed?"Redeemed":"Available"}</span></td>
+        <td style="font-family:monospace;font-size:11px">${k.redeemed_by||"—"}</td>
         <td><button class="btn btn-red" onclick="deleteKey('${k.key}')">Delete</button></td>
-      </tr>`;
-    });
+      </tr>`).join("");
   }
 
   async function generateKeys() {
     const duration = document.getElementById("k-duration").value;
-    const amount = document.getElementById("k-amount").value;
-    const res = await fetch("/api/keys", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ duration, amount: parseInt(amount) })
-    });
+    const amount = parseInt(document.getElementById("k-amount").value);
+    const res = await fetch("/api/keys", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ duration, amount }) });
     const data = await res.json();
     setMsg("k-msg", data.success ? `Generated ${data.keys.length} key(s)!` : data.error);
     loadKeys();
   }
 
   async function deleteKey(key) {
-    await fetch("/api/keys", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ key })
-    });
+    await fetch("/api/keys", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ key }) });
     loadKeys();
   }
 
-  // Logs
   async function loadLogs(filter) {
     const logs = await fetch(`/api/logs?filter=${filter}`).then(r => r.json());
-    const tbody = document.getElementById("logs-table");
-    tbody.innerHTML = "";
-    logs.forEach(l => {
-      tbody.innerHTML += `<tr>
-        <td>${l.username || "-"}</td>
-        <td style="font-size:11px">${l.hwid}</td>
-        <td>${l.action}</td>
-        <td>${new Date(l.timestamp).toLocaleString()}</td>
-      </tr>`;
-    });
+    document.getElementById("logs-table").innerHTML = logs.map(l => `
+      <tr>
+        <td style="color:#d0d0e8;font-weight:500">${l.username||"Unknown"}</td>
+        <td style="font-family:monospace;font-size:11px">${l.hwid.slice(0,24)}...</td>
+        <td><span style="color:${l.action==='executed'?'#34d399':l.action==='redeemed key'?'#60a5fa':l.action==='hwid reset'?'#fbbf24':'#f87171'}">${l.action}</span></td>
+        <td style="color:#4a4a6a">${new Date(l.timestamp).toLocaleString()}</td>
+      </tr>`).join("");
   }
 
-  function setMsg(id, text) {
-    document.getElementById(id).innerText = text;
-  }
+  function setMsg(id, text) { document.getElementById(id).innerText = text; }
 </script>
 </body>
 </html>
