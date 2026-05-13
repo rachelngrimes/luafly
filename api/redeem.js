@@ -6,10 +6,10 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  if (req.method !== "POST")
-    return res.status(405).json({ error: "Method not allowed" });
+  const key = req.method === "GET" ? req.query.key : req.body.key;
+  const hwid = req.method === "GET" ? req.query.hwid : req.body.hwid;
+  const username = req.method === "GET" ? req.query.username : req.body.username;
 
-  const { key, hwid, username } = req.body;
   if (!key || !hwid) return res.status(400).json({ error: "Missing key or HWID" });
 
   // Check if key exists
