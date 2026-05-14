@@ -8,10 +8,8 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#0d0d14;color:#e8e8f0;font-family:'Inter',system-ui,sans-serif;min-height:100vh;font-size:13px}
-
     .bg-glow-l{position:fixed;top:-150px;left:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(59,40,120,0.25) 0%,transparent 70%);pointer-events:none;z-index:0}
     .bg-glow-r{position:fixed;bottom:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(30,50,120,0.18) 0%,transparent 70%);pointer-events:none;z-index:0}
-
     #loginScreen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10}
     .login-card{background:#13131f;border:1px solid #1e1e35;border-radius:20px;padding:38px 34px;width:330px;text-align:center;position:relative;z-index:1}
     .login-icon{width:62px;height:62px;background:#5b3ef5;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px}
@@ -25,9 +23,7 @@
     .unlock-btn{width:100%;padding:13px;background:#5b3ef5;border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .2s}
     .unlock-btn:hover{opacity:.88}
     #loginError{color:#f87171;font-size:12px;margin-top:10px;min-height:16px}
-
     #app{display:none;min-height:100vh;position:relative;z-index:1}
-
     .navbar{display:flex;align-items:center;justify-content:space-between;padding:13px 32px;border-bottom:1px solid #1e1e35;background:rgba(13,13,20,.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
     .nav-left{display:flex;align-items:center;gap:8px}
     .nav-dot{width:8px;height:8px;background:#5b3ef5;border-radius:50%}
@@ -38,66 +34,58 @@
     .tab.active{background:#1e1a3a;color:#fff}
     .nav-right button{background:#13131f;border:1px solid #1e1e35;color:#a0a0c0;padding:7px 16px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s}
     .nav-right button:hover{border-color:#5b3ef5;color:#fff}
-
-    .content{padding:28px 32px;max-width:1100px;margin:0 auto}
+    .content{padding:28px 32px;max-width:1200px;margin:0 auto}
     .page{display:none}.page.active{display:block}
     .sec-label{font-size:10px;font-weight:600;color:#7c6af5;letter-spacing:.1em;margin-bottom:5px}
     .sec-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:5px}
     .sec-sub{font-size:13px;color:#5a5a7a;margin-bottom:22px}
-
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}
     .stat-card{background:#13131f;border:1px solid #1e1e35;border-radius:13px;padding:16px 18px}
     .stat-lbl{font-size:11px;color:#5a5a7a;margin-bottom:7px;font-weight:500}
     .stat-num{font-size:26px;font-weight:700;color:#fff}
     .stat-num.p{color:#7c6af5}.stat-num.g{color:#34d399}.stat-num.r{color:#f87171}.stat-num.b{color:#60a5fa}
-
     .card{background:#13131f;border:1px solid #1e1e35;border-radius:13px;padding:20px 22px;margin-bottom:16px}
     .card-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:16px}
     .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-
     .form-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px}
     .form-group{display:flex;flex-direction:column;gap:6px}
     input,select,textarea{background:#0d0d14;border:1px solid #1e1e35;border-radius:8px;padding:9px 12px;color:#e8e8f0;font-size:13px;font-family:inherit;transition:border-color .15s}
     input:focus,select:focus,textarea:focus{outline:none;border-color:#5b3ef5}
     textarea{resize:vertical;min-height:75px}
     select option{background:#13131f}
-
     .btn{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none;display:inline-flex;align-items:center;gap:6px;transition:opacity .15s}
     .btn:hover{opacity:.85}
     .btn-primary{background:#5b3ef5;color:#fff}
     .btn-danger{background:#2b0d0d;color:#f87171;border:1px solid #7f1d1d}
     .btn-ghost{background:#1a1a2e;color:#a0a0c0}
     .btn-success{background:#0d2b1a;color:#34d399;border:1px solid #065f46}
-
+    .btn-export{background:#1a2a1a;color:#34d399;border:1px solid #065f46}
     .msg{font-size:12px;color:#5a5a7a;min-height:18px;margin-top:4px}
-
     table{width:100%;border-collapse:collapse;font-size:12px}
     th{font-size:10px;font-weight:600;color:#5a5a7a;text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;border-bottom:1px solid #1e1e35;text-align:left}
     td{padding:11px 12px;border-bottom:1px solid #161626;color:#a0a0c0;vertical-align:middle}
     tr:last-child td{border-bottom:none}
     tbody tr:hover td{background:#161628}
-
     .pill{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;display:inline-block}
     .pill.wl{background:#0d2b1a;color:#34d399;border:1px solid #065f46}
     .pill.bl{background:#2b0d0d;color:#f87171;border:1px solid #7f1d1d}
     .pill.ex{background:#2b2b0d;color:#fbbf24;border:1px solid #78350f}
     .pill.av{background:#1e1040;color:#a78bfa;border:1px solid #2e1e5e}
     .pill.rd{background:#0d1a3a;color:#60a5fa;border:1px solid #1e3070}
-
     .avatar{width:30px;height:30px;border-radius:8px;background:#1e1040;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#7c6af5;flex-shrink:0}
     .urow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a1a2e}
     .urow:last-child{border-bottom:none}
     .lrow{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid #1a1a2e}
     .lrow:last-child{border-bottom:none}
     .ldot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-
     #modalOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
     #modalOverlay.open{display:flex}
-    .modal-box{background:#13131f;border:1px solid #2e1e5e;border-radius:16px;padding:28px;width:400px}
+    .modal-box{background:#13131f;border:1px solid #2e1e5e;border-radius:16px;padding:28px;width:420px;max-height:90vh;overflow-y:auto}
     .modal-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:20px}
     .modal-box input,.modal-box select,.modal-box textarea{width:100%;margin-bottom:10px}
     .modal-footer{display:flex;gap:8px;margin-top:6px}
     .modal-label{font-size:10px;font-weight:600;color:#7c6af5;letter-spacing:.1em;display:block;margin-bottom:6px}
+    #execChart{width:100%;height:200px}
   </style>
 </head>
 <body>
@@ -151,6 +139,10 @@
         <div class="card"><div class="card-title">Recent Users</div><div id="overview-users"></div></div>
         <div class="card"><div class="card-title">Live Logs</div><div id="overview-logs"></div></div>
       </div>
+      <div class="card">
+        <div class="card-title">Executions — Last 7 Days</div>
+        <canvas id="execChart"></canvas>
+      </div>
     </div>
 
     <div id="page-users" class="page">
@@ -167,7 +159,14 @@
         </div>
         <div class="msg" id="u-msg"></div>
       </div>
-      <div class="card"><table><thead><tr><th>User</th><th>HWID</th><th>Status</th><th>Notes</th><th>Resets</th><th></th></tr></thead><tbody id="users-table"></tbody></table></div>
+      <div class="card">
+        <div class="form-row" style="margin-bottom:16px">
+          <div class="form-group"><label class="form-label">SEARCH</label><input id="u-search" placeholder="Search username or HWID..." style="width:240px" oninput="filterUsers()"/></div>
+          <div class="form-group"><label class="form-label">SORT BY</label><select id="u-sort" style="width:140px" onchange="filterUsers()"><option value="created_at">Date Added</option><option value="username">Username</option><option value="status">Status</option></select></div>
+          <div class="form-group" style="justify-content:flex-end"><button class="btn btn-export" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</button></div>
+        </div>
+        <div style="overflow-x:auto"><table><thead><tr><th>User</th><th>HWID</th><th>Status</th><th>Notes</th><th>Resets</th><th>Tokens</th><th>Executor</th><th>Last Seen</th><th></th></tr></thead><tbody id="users-table"></tbody></table></div>
+      </div>
     </div>
 
     <div id="page-keys" class="page">
@@ -182,7 +181,7 @@
         </div>
         <div class="msg" id="k-msg"></div>
       </div>
-      <div class="card"><table><thead><tr><th>Key</th><th>Duration</th><th>Status</th><th>Redeemed By</th><th></th></tr></thead><tbody id="keys-table"></tbody></table></div>
+      <div class="card"><div style="overflow-x:auto"><table><thead><tr><th>Key</th><th>Duration</th><th>Status</th><th>Redeemed By</th><th></th></tr></thead><tbody id="keys-table"></tbody></table></div></div>
     </div>
 
     <div id="page-logs" class="page">
@@ -196,7 +195,7 @@
           <button class="btn btn-ghost" onclick="loadLogs('week')">This Week</button>
         </div>
       </div>
-      <div class="card"><table><thead><tr><th>User</th><th>HWID</th><th>Action</th><th>Time</th></tr></thead><tbody id="logs-table"></tbody></table></div>
+      <div class="card"><div style="overflow-x:auto"><table><thead><tr><th>User</th><th>HWID</th><th>Action</th><th>Time</th></tr></thead><tbody id="logs-table"></tbody></table></div></div>
     </div>
 
   </div>
@@ -212,6 +211,7 @@
     <label class="modal-label">BAN REASON</label><input id="edit-ban-reason" placeholder="Reason for ban" />
     <label class="modal-label">NOTES</label><textarea id="edit-notes" placeholder="Notes"></textarea>
     <label class="modal-label">HWID RESETS LEFT</label><input id="edit-resets" type="number" />
+    <label class="modal-label">TOKENS</label><input id="edit-tokens" type="number" />
     <div class="modal-footer">
       <button class="btn btn-success" onclick="saveUser()"><i class="ti ti-check"></i> Save</button>
       <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
@@ -220,7 +220,11 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
+  let allUsers = [];
+  let execChartInstance = null;
+
   function togglePw(){const i=document.getElementById("passwordInput");i.type=i.type==="password"?"text":"password"}
 
   async function checkPassword(){
@@ -263,6 +267,7 @@
     document.getElementById("s-wl").innerText=users.filter(u=>u.status==="whitelisted").length;
     document.getElementById("s-bl").innerText=users.filter(u=>u.status==="blacklisted").length;
     document.getElementById("s-exec").innerText=logs.filter(l=>l.action==="executed").length;
+
     document.getElementById("overview-users").innerHTML=users.slice(0,5).map(u=>`
       <div class="urow">
         <div class="avatar">${(u.username||"?").slice(0,2).toUpperCase()}</div>
@@ -272,25 +277,113 @@
         </div>
         <span class="pill ${u.status==="whitelisted"?"wl":u.status==="blacklisted"?"bl":"ex"}">${u.status}</span>
       </div>`).join("");
+
     document.getElementById("overview-logs").innerHTML=logs.slice(0,5).map(l=>`
       <div class="lrow">
         <div class="ldot" style="background:${l.action==="executed"?"#34d399":l.action==="redeemed key"?"#60a5fa":l.action==="hwid reset"?"#fbbf24":"#f87171"}"></div>
         <div style="flex:1;font-size:12px;color:#6060a0"><span style="color:#d0d0e8;font-weight:500">${l.username||"Unknown"}</span> ${l.action}</div>
         <div style="font-size:10px;color:#3a3a5a">${new Date(l.timestamp).toLocaleTimeString()}</div>
       </div>`).join("");
+
+    // Chart
+    const allLogs = await fetch("/api/logs?filter=week").then(r=>r.json());
+    const days = [];
+    const counts = [];
+    for(let i=6;i>=0;i--){
+      const d = new Date();
+      d.setDate(d.getDate()-i);
+      const label = d.toLocaleDateString('en-US',{weekday:'short'});
+      days.push(label);
+      const count = allLogs.filter(l=>{
+        const ld = new Date(l.timestamp);
+        return ld.toDateString()===d.toDateString() && l.action==="executed";
+      }).length;
+      counts.push(count);
+    }
+
+    if(execChartInstance) execChartInstance.destroy();
+    const ctx = document.getElementById("execChart").getContext("2d");
+    execChartInstance = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: days,
+        datasets: [{
+          label: "Executions",
+          data: counts,
+          borderColor: "#5b3ef5",
+          backgroundColor: "rgba(91,62,245,0.1)",
+          borderWidth: 2,
+          pointBackgroundColor: "#7c6af5",
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { color: "#1e1e35" }, ticks: { color: "#5a5a7a" } },
+          y: { grid: { color: "#1e1e35" }, ticks: { color: "#5a5a7a", stepSize: 1 }, beginAtZero: true }
+        }
+      }
+    });
   }
 
   async function loadUsers(){
-    const users=await fetch("/api/users").then(r=>r.json());
+    allUsers = await fetch("/api/users").then(r=>r.json());
+    renderUsers(allUsers);
+  }
+
+  function filterUsers(){
+    const search = document.getElementById("u-search").value.toLowerCase();
+    const sort = document.getElementById("u-sort").value;
+    let filtered = allUsers.filter(u=>
+      (u.username||"").toLowerCase().includes(search) ||
+      u.hwid.toLowerCase().includes(search)
+    );
+    filtered.sort((a,b)=>{
+      if(sort==="username") return (a.username||"").localeCompare(b.username||"");
+      if(sort==="status") return a.status.localeCompare(b.status);
+      return new Date(b.created_at)-new Date(a.created_at);
+    });
+    renderUsers(filtered);
+  }
+
+  function renderUsers(users){
     document.getElementById("users-table").innerHTML=users.map(u=>`
       <tr>
         <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar">${(u.username||"?").slice(0,2).toUpperCase()}</div><span style="color:#e8e8f0;font-weight:500">${u.username||"Unknown"}</span></div></td>
-        <td style="font-family:monospace;font-size:11px;color:#4a4a6a">${u.hwid.slice(0,26)}...</td>
+        <td style="font-family:monospace;font-size:11px;color:#4a4a6a">${u.hwid.slice(0,24)}...</td>
         <td><span class="pill ${u.status==="whitelisted"?"wl":u.status==="blacklisted"?"bl":"ex"}">${u.status}</span></td>
         <td>${u.notes||"—"}</td>
         <td style="color:#7c6af5;font-weight:600">${u.hwid_resets_left??3}</td>
+        <td style="color:#60a5fa;font-weight:600">${u.tokens??0}</td>
+        <td style="color:#5a5a7a;font-size:11px">${u.executor||"—"}</td>
+        <td style="color:#5a5a7a;font-size:11px">${u.last_seen?new Date(u.last_seen).toLocaleDateString():"—"}</td>
         <td><button class="btn btn-ghost" style="padding:5px 12px;font-size:11px" onclick='openEdit(${JSON.stringify(JSON.stringify(u))})'>Edit</button></td>
       </tr>`).join("");
+  }
+
+  function exportCSV(){
+    const headers = ["Username","HWID","Status","Notes","Resets Left","Tokens","Executor","Last Seen","Created At"];
+    const rows = allUsers.map(u=>[
+      u.username||"Unknown",
+      u.hwid,
+      u.status,
+      u.notes||"",
+      u.hwid_resets_left??3,
+      u.tokens??0,
+      u.executor||"Unknown",
+      u.last_seen||"",
+      u.created_at||""
+    ]);
+    const csv = [headers,...rows].map(r=>r.join(",")).join("\n");
+    const blob = new Blob([csv],{type:"text/csv"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href=url;
+    a.download="luafly-users.csv";
+    a.click();
   }
 
   async function addUser(){
@@ -313,6 +406,7 @@
     document.getElementById("edit-ban-reason").value=u.ban_reason||"";
     document.getElementById("edit-notes").value=u.notes||"";
     document.getElementById("edit-resets").value=u.hwid_resets_left??3;
+    document.getElementById("edit-tokens").value=u.tokens??0;
     document.getElementById("modalOverlay").classList.add("open");
   }
 
@@ -320,7 +414,15 @@
 
   async function saveUser(){
     const hwid=document.getElementById("edit-hwid").value;
-    await fetch("/api/users",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({hwid,username:document.getElementById("edit-username").value,status:document.getElementById("edit-status").value,ban_reason:document.getElementById("edit-ban-reason").value,notes:document.getElementById("edit-notes").value,hwid_resets_left:parseInt(document.getElementById("edit-resets").value)})});
+    await fetch("/api/users",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+      hwid,
+      username:document.getElementById("edit-username").value,
+      status:document.getElementById("edit-status").value,
+      ban_reason:document.getElementById("edit-ban-reason").value,
+      notes:document.getElementById("edit-notes").value,
+      hwid_resets_left:parseInt(document.getElementById("edit-resets").value),
+      tokens:parseInt(document.getElementById("edit-tokens").value)
+    })});
     closeModal();loadUsers();
   }
 
@@ -361,7 +463,7 @@
     document.getElementById("logs-table").innerHTML=logs.map(l=>`
       <tr>
         <td style="color:#e8e8f0;font-weight:500">${l.username||"Unknown"}</td>
-        <td style="font-family:monospace;font-size:11px;color:#4a4a6a">${l.hwid.slice(0,26)}...</td>
+        <td style="font-family:monospace;font-size:11px;color:#4a4a6a">${l.hwid.slice(0,24)}...</td>
         <td><span style="color:${l.action==="executed"?"#34d399":l.action==="redeemed key"?"#60a5fa":l.action==="hwid reset"?"#fbbf24":"#f87171"};font-weight:500">${l.action}</span></td>
         <td style="color:#4a4a6a;font-size:12px">${new Date(l.timestamp).toLocaleString()}</td>
       </tr>`).join("");
